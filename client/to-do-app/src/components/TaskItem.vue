@@ -3,61 +3,55 @@
     @click="selectTask"
     button
   >
-    <b-row>
-      <b-col sm="1">
-        <b-button
-          size="sm"
-          class="mr-1"
-          variant="outline-info"
-          block
-          v-b-hover="handleHover"
-        >
-          <b-iconstack>
-            <b-icon-circle stacked v-if="!isHovered"/>
-            <b-icon-check-2-circle stacked v-else />
-          </b-iconstack>
-        </b-button>
+    <b-row
+      no-gutters
+      class="align-items-center"
+    >
+
+      <!-- Complete Task Button -->
+      <b-col
+        sm="1"
+        class="pr-2"
+      >
+        <complete-task-button/>
       </b-col>
-      <b-col sm="11">
+
+      <!-- Task Title -->
+      <b-col sm="8">
         {{ task.title }}
       </b-col>
+
+      <b-col sm="3">
+        {{ task.description }}
+      </b-col>
+
     </b-row>
   </b-list-group-item>
 </template>
 
 <script>
-import { BIconstack, BIconCircle, BIconCheck2Circle } from 'bootstrap-vue'
+import CompleteTaskButton from '@/components/CompleteTaskButton'
 import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'TaskItem',
   components: {
-    BIconstack,
-    BIconCircle,
-    BIconCheck2Circle
+    CompleteTaskButton
   },
   props: {
     task: Object
   },
-  data () {
-    return {
-      isHovered: false
-    }
-  },
   computed: {
+    // Represents the selected task
     ...mapState('app', ['selectedTask'])
   },
   methods: {
+    // Vuex method to update the selected task
     ...mapActions('app', ['updateSelectedTask']),
 
     // Handles task selection
     selectTask () {
       this.updateSelectedTask(this.task)
-    },
-
-    // Handles hovering over the complete task button
-    handleHover (hovered) {
-      this.isHovered = hovered
     }
   }
 }

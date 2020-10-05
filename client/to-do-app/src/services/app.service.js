@@ -12,6 +12,13 @@ export default {
   },
 
   // PUT requests
+  async putTask (params, id) {
+    const result = await ApiService.patch(`tasks/${id}`, params)
+      .catch(error => {
+        console.error(error)
+      })
+    return result.data
+  },
 
   // POST requests
   async postTask (params) {

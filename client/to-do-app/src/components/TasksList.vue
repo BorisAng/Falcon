@@ -1,6 +1,7 @@
 <template>
-
   <b-list-group>
+
+    <!-- Task Item -->
     <task-item
       v-for="task in tasks"
       :key="task.id"
@@ -19,13 +20,7 @@ export default {
     tasks: Array
   },
   data () {
-    return {
-      fields: [
-        { key: 'completeTask', label: 'Complete Task', thStyle: { width: '200px' } },
-        { key: 'title', label: 'Title' },
-        { key: 'description', label: 'Description' }
-      ]
-    }
+    return {}
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <b-input-group class="mb-2">
     <b-input-group-prepend>
       <b-button
-        variant="outline-info"
+        variant="outline-primary"
         @click="createTask"
       >
         <b-icon-plus></b-icon-plus>
