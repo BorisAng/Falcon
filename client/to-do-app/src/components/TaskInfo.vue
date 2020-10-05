@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'ToDoInfo'
+  name: 'TaskInfo'
 }
 </script>
 

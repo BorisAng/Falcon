@@ -13,10 +13,10 @@
       class="px-3 py-1"
     >
       <!-- Main Content -->
-      <main-content/>
+      <main-content :title="`Tasks`"/>
 
-      <!-- To Do Info -->
-      <to-do-info/>
+      <!-- Task Info -->
+      <task-info/>
     </b-row>
 
   </b-container>
@@ -25,11 +25,11 @@
 <script>
 import Navigation from '@/components/Navigation'
 import MainContent from '@/components/MainContent'
-import ToDoInfo from '@/components/ToDoInfo'
+import TaskInfo from '@/components/TaskInfo'
 
 export default {
   name: 'App',
-  components: { Navigation, MainContent, ToDoInfo }
+  components: { Navigation, MainContent, TaskInfo }
 }
 </script>
 
