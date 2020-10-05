@@ -1,18 +1,35 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <b-container
+    id="app"
+    :fluid="true"
+    class="px-0 mt-0"
+  >
+    <!-- Top Navigation Bar -->
+    <navigation/>
+
+    <!--      :style="{'height': '90vh'}"-->
+    <b-row
+      no-gutters
+      class="px-3 py-1"
+    >
+      <!-- Main Content -->
+      <main-content/>
+
+      <!-- To Do Info -->
+      <to-do-info/>
+    </b-row>
+
+  </b-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navigation from '@/components/Navigation'
+import MainContent from '@/components/MainContent'
+import ToDoInfo from '@/components/ToDoInfo'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: { Navigation, MainContent, ToDoInfo }
 }
 </script>
 
