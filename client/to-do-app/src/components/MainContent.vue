@@ -1,12 +1,19 @@
 <template>
-  <b-col sm="9" class="border-right">
-    <h1 class="text-left">{{title}}</h1>
+  <b-col
+    sm="9"
+    class="border-right pr-4 text-left"
+  >
+    <h1>{{title}}</h1>
 
     <!-- Create To Do -->
-    <create-task/>
+    <create-task
+      @updateTasks="updateTasks()"
+    />
 
     <!-- Tasks List -->
-    <tasks-list/>
+    <tasks-list
+      :tasks="tasks"
+    />
 
   </b-col>
 </template>
@@ -29,6 +36,13 @@ export default {
   },
   async created () {
     this.tasks = await AppService.getTasks()
+  },
+  methods: {
+
+    // Responds to updateTask event
+    async updateTasks () {
+      this.tasks = await AppService.getTasks()
+    }
   }
 }
 </script>

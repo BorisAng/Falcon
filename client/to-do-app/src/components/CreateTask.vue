@@ -1,14 +1,19 @@
 <template>
   <b-input-group class="mb-2">
     <b-input-group-prepend>
-      <b-button variant="outline-info" class="p-0">
-        <b-icon-plus class="mx-3"></b-icon-plus>
+      <b-button
+        variant="outline-info"
+        @click="createTask"
+      >
+        <b-icon-plus></b-icon-plus>
       </b-button>
    </b-input-group-prepend>
 
     <b-form-input
       type="text"
       placeholder="Add a task"
+      v-model="taskTitle"
+      autocomplete="off"
     />
 
   </b-input-group>
@@ -16,9 +21,33 @@
 
 <script>
 import { BIconPlus } from 'bootstrap-vue'
+import AppService from '@/services/app.service'
+
 export default {
   name: 'CreateTask',
-  components: { BIconPlus }
+  components: { BIconPlus },
+  data () {
+    return {
+      taskTitle: ''
+    }
+  },
+  methods: {
+
+    /**
+     *   Create a Task using AppService.
+     *   @emits updateTasks
+     */
+    async createTask () {
+      const params = {
+        title: this.taskTitle,
+        description: ''
+      }
+      const postTaskResult = await AppService.postTask(params)
+      if (postTaskResult.createdAt) {
+        this.$emit('updateTasks')
+      }
+    }
+  }
 }
 </script>
 

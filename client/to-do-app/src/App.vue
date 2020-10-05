@@ -16,7 +16,7 @@
       <main-content :title="`Tasks`"/>
 
       <!-- Task Info -->
-      <task-info/>
+      <task-info :selectedTask="selectedTask"/>
     </b-row>
 
   </b-container>
@@ -26,10 +26,14 @@
 import Navigation from '@/components/Navigation'
 import MainContent from '@/components/MainContent'
 import TaskInfo from '@/components/TaskInfo'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
-  components: { Navigation, MainContent, TaskInfo }
+  components: { Navigation, MainContent, TaskInfo },
+  computed: {
+    ...mapState('app', ['selectedTask'])
+  }
 }
 </script>
 

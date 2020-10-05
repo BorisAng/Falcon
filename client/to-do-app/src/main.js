@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-
-// Client services
-import ApiService from '@/services/api.service'
+import store from './store'
 
 // External Libraries
 import BootstrapVue from 'bootstrap-vue'
@@ -11,9 +9,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.min.css'
 
 Vue.use(BootstrapVue)
 
-Vue.prototype.$http = ApiService
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   render: h => h(App)
 }).$mount('#app')
