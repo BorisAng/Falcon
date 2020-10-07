@@ -1,6 +1,6 @@
 <template>
   <b-button
-    size="sm"
+    :size="size ? size : 'sm'"
     class="mr-1"
     variant="outline-primary"
     block
@@ -21,6 +21,9 @@ export default {
     BIconstack,
     BIconCircle,
     BIconCheck2Circle
+  },
+  props: {
+    size: String
   },
   data () {
     return {

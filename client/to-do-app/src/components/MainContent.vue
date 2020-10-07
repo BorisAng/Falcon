@@ -1,7 +1,7 @@
 <template>
   <b-col
     sm="9"
-    class="border-right pr-4 text-left"
+    class="border-right pr-3 text-left"
   >
     <h1>{{title}}</h1>
 
@@ -9,6 +9,8 @@
     <create-task
       @updateTasks="updateTasks()"
     />
+
+    <!-- TODO: Add <router-view> and render <tasks-list> inside -->
 
     <!-- Tasks List -->
     <tasks-list

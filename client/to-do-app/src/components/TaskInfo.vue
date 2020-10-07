@@ -1,18 +1,27 @@
 <template>
-  <b-col sm="3">
+  <b-col
+    sm="3"
+    class="pl-3"
+  >
     <b-card>
       <b-card-body>
 
-        <b-row no-gutters>
+        <b-row
+          no-gutters
+          class="mb-3"
+        >
 
           <!-- Complete Task Button -->
           <b-col sm="2">
-            <complete-task-button/>
+            <complete-task-button
+              :size="'md'"
+            />
           </b-col>
 
           <!-- Edit Task Title -->
-          <b-col sm="10">
+          <b-col sm="9" class="px-2">
             <b-form-input
+              class="border-0"
               type="text"
               placeholder="Add a task"
               v-model="localSelectedTaskTitle"
@@ -20,6 +29,15 @@
               @blur="storeNewTaskTitle"
               @keydown.enter.native="storeNewTaskTitle"
             />
+          </b-col>
+
+          <b-col sm='1'>
+            <b-btn
+              variant="outline-danger"
+              @click="deleteTask"
+            >
+              <b-icon-trash/>
+            </b-btn>
           </b-col>
         </b-row>
 
@@ -44,12 +62,14 @@
 <script>
 import AppService from '@/services/app.service'
 import CompleteTaskButton from '@/components/CompleteTaskButton'
+import { BIconTrash } from 'bootstrap-vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'TaskInfo',
   components: {
-    CompleteTaskButton
+    CompleteTaskButton,
+    BIconTrash
   },
   data () {
     return {
@@ -138,6 +158,14 @@ export default {
       } else {
         this.taskDescriptionChanged = false
       }
+    },
+
+    deleteTask () {
+      /*
+        TODO:
+          1. Ask user if he/she is sure via vbModal
+          2. Handle deletion
+       */
     }
   }
 }
