@@ -31,7 +31,7 @@
 
 <script>
 import CompleteTaskButton from '@/components/CompleteTaskButton'
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'TaskItem',
@@ -40,10 +40,6 @@ export default {
   },
   props: {
     task: Object
-  },
-  computed: {
-    // Represents the selected task
-    ...mapState('app', ['selectedTask'])
   },
   methods: {
     // Vuex method to update the selected task
