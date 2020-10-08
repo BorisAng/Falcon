@@ -9,6 +9,7 @@
         v-for="task in nonCompletedTask"
         :key="task.id + 'notCompleted'"
         :task="task"
+        @updateTasks="updateTasks"
       />
     </b-list-group>
 
@@ -38,21 +39,16 @@
         v-model="collapsableShow"
         role="tabpanel"
       >
-        <perfect-scrollbar
-          class="matched-firms-scroll-area"
-          :options="scrollSettings"
-        >
-          <b-card-body>
-            <!-- Completed Tasks -->
-            <b-list-group>
-              <task-item
-                v-for="task in completedTasks"
-                :key="task.id + 'completed'"
-                :task="task"
-              />
-            </b-list-group>
-          </b-card-body>
-        </perfect-scrollbar>
+        <b-card-body>
+          <!-- Completed Tasks -->
+          <b-list-group>
+            <task-item
+              v-for="task in completedTasks"
+              :key="task.id + 'completed'"
+              :task="task"
+            />
+          </b-list-group>
+        </b-card-body>
       </b-collapse>
     </b-card>
   </div>
@@ -70,13 +66,7 @@ export default {
   },
   data () {
     return {
-      collapsableShow: false,
-      scrollSettings: {
-        maxScrollbarLength: 100,
-        minScrollbarLength: 150,
-        suppressScrollX: true,
-        handlers: ['drag-thumb', 'wheel']
-      }
+      collapsableShow: false
     }
   },
   computed: {
@@ -97,6 +87,11 @@ export default {
       } else {
         return []
       }
+    }
+  },
+  methods: {
+    updateTasks () {
+      this.$emit('updateTasks')
     }
   }
 }

@@ -16,7 +16,10 @@
       <create-task @updateTasks="updateTasks"/>
 
       <!-- Tasks List -->
-      <tasks-list :tasks="tasks"/>
+      <tasks-list
+        :tasks="tasks"
+        @updateTasks="updateTasks"
+      />
 
     </b-col>
 

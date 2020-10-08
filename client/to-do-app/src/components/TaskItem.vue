@@ -1,33 +1,44 @@
 <template>
-  <b-list-group-item
-    @click="selectTask"
-    button
+  <b-row
+    no-gutters
+    class="align-items-center mb-2"
   >
-    <b-row
-      no-gutters
-      class="align-items-center"
+    <!-- Complete Task Button -->
+    <b-col
+      v-if="!task.completed"
+      sm="1"
+      class="pr-2"
     >
+      <complete-task-button
+        :size="'lg'"
+        :task="task"
+        @updateTasks="updateTasks"
+      />
+    </b-col>
 
-      <!-- Complete Task Button -->
-      <b-col
-        v-if="!task.completed"
-        sm="1"
-        class="pr-2"
+    <b-col sm="11">
+      <b-list-group-item
+        @click="selectTask"
+        button
       >
-        <complete-task-button/>
-      </b-col>
+        <b-row
+          no-gutters
+          class="align-items-center"
+        >
 
-      <!-- Task Title -->
-      <b-col sm="8">
-        {{ task.title }}
-      </b-col>
+          <!-- Task Title -->
+          <b-col sm="8">
+            {{ task.title }}
+          </b-col>
 
-      <b-col sm="3">
-        {{ task.description }}
-      </b-col>
+          <b-col sm="3">
+            {{ task.description }}
+          </b-col>
 
-    </b-row>
-  </b-list-group-item>
+        </b-row>
+      </b-list-group-item>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
@@ -49,6 +60,10 @@ export default {
     // Handles task selection
     selectTask () {
       this.updateSelectedTask(this.task)
+    },
+
+    updateTasks () {
+      this.$emit('updateTasks')
     }
   }
 }

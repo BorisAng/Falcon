@@ -6,7 +6,6 @@
     block
     v-b-hover="handleHover"
     @click="handleClick"
-    :disabled="selectedTask.completed === null || selectedTask.completed === true"
     v-b-tooltip.hover title="Mark As Completed"
   >
     <b-iconstack>
@@ -18,7 +17,6 @@
 
 <script>
 import { BIconstack, BIconCircle, BIconCheck2Circle } from 'bootstrap-vue'
-import { mapActions, mapState } from 'vuex'
 import AppService from '@/services/app.service'
 
 export default {
@@ -29,7 +27,8 @@ export default {
     BIconCheck2Circle
   },
   props: {
-    size: String
+    size: String,
+    task: Object
   },
   data () {
     return {
@@ -37,12 +36,9 @@ export default {
     }
   },
   computed: {
-    // Get the selectedTask from Vuex
-    ...mapState('app', ['selectedTask'])
+
   },
   methods: {
-    // Get the actions (i.e. methods) to update the Vuex title and description
-    ...mapActions('app', ['updateTaskCompleted', 'updateSelectedTask']),
 
     /**
      * @description Handles hovering over the complete task button
@@ -50,7 +46,6 @@ export default {
      */
     handleHover (hovered) {
       this.isHovered = hovered
-      console.log(this.selectedTask.completed)
     },
 
     /**
@@ -60,16 +55,11 @@ export default {
       // Make back-end call with new title
       const putTaskResult = await AppService.putTask({
         completed: true
-      }, this.selectedTask.id)
+      }, this.task.id)
 
       // Update Vuex
       if (putTaskResult.createdAt) {
-        this.updateTaskCompleted(true)
-        this.updateSelectedTask({
-          title: null,
-          description: null,
-          completed: null
-        })
+        this.$emit('updateTasks')
       }
     }
   }
