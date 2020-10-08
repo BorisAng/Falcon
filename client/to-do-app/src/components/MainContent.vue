@@ -1,23 +1,35 @@
 <template>
-  <b-col
-    sm="9"
-    class="border-right pr-3 text-left"
+  <!--      :style="{'height': '90vh'}"-->
+  <b-row
+    no-gutters
+    class="px-3 pt-3"
   >
-    <h1>{{title}}</h1>
+    <b-col
+      sm="9"
+      class="border-right pr-3 text-left"
+    >
+      <h1>{{title}}</h1>
 
-    <!-- Create To Do -->
-    <create-task
-      @updateTasks="updateTasks()"
+      <!-- TODO: Add <router-view> and render <create-task> and <tasks-list> inside ??? -->
+
+      <!-- Create To Do -->
+      <create-task
+        @updateTasks="updateTasks"
+      />
+
+      <!-- Tasks List -->
+      <tasks-list
+        :tasks="tasks"
+      />
+
+    </b-col>
+
+    <!-- Task Info -->
+    <task-info
+      :selectedTask="selectedTask"
+      @updateTasks="updateTasks"
     />
-
-    <!-- TODO: Add <router-view> and render <tasks-list> inside -->
-
-    <!-- Tasks List -->
-    <tasks-list
-      :tasks="tasks"
-    />
-
-  </b-col>
+  </b-row>
 </template>
 
 <script>
@@ -25,9 +37,11 @@ import CreateTask from '@/components/CreateTask'
 import TasksList from '@/components/TasksList'
 
 import AppService from '@/services/app.service'
+import TaskInfo from '@/components/TaskInfo'
+import { mapState } from 'vuex'
 export default {
   name: 'MainContent',
-  components: { CreateTask, TasksList },
+  components: { CreateTask, TasksList, TaskInfo },
   props: {
     title: String
   },
@@ -38,6 +52,9 @@ export default {
   },
   async created () {
     this.tasks = await AppService.getTasks()
+  },
+  computed: {
+    ...mapState('app', ['selectedTask'])
   },
   methods: {
 

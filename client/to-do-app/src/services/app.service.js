@@ -27,8 +27,14 @@ export default {
         console.error(error)
       })
     return result.data
-  }
+  },
 
   // DELETE requests
-
+  async deleteTask (id) {
+    const result = await ApiService.delete(`tasks/${id}`)
+      .catch(error => {
+        console.error(error)
+      })
+    return result.data
+  }
 }

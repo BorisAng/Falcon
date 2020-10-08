@@ -7,17 +7,10 @@
     <!-- Top Navigation Bar -->
     <navigation/>
 
-    <!--      :style="{'height': '90vh'}"-->
-    <b-row
-      no-gutters
-      class="px-3 py-1"
-    >
-      <!-- Main Content -->
-      <main-content :title="`Tasks`"/>
+    <!-- TODO: Add <router-view> and render <main-content> and <task-info> inside ??? -->
 
-      <!-- Task Info -->
-      <task-info :selectedTask="selectedTask"/>
-    </b-row>
+    <!-- Main Content -->
+    <main-content :title="`Tasks`"/>
 
   </b-container>
 </template>
@@ -25,15 +18,10 @@
 <script>
 import Navigation from '@/components/Navigation'
 import MainContent from '@/components/MainContent'
-import TaskInfo from '@/components/TaskInfo'
-import { mapState } from 'vuex'
 
 export default {
   name: 'App',
-  components: { Navigation, MainContent, TaskInfo },
-  computed: {
-    ...mapState('app', ['selectedTask'])
-  }
+  components: { Navigation, MainContent }
 }
 </script>
 

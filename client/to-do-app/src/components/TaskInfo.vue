@@ -23,7 +23,7 @@
             <b-form-input
               class="border-0"
               type="text"
-              placeholder="Add a task"
+              placeholder="Enter task title"
               v-model="localSelectedTaskTitle"
               autocomplete="off"
               @blur="storeNewTaskTitle"
@@ -44,7 +44,7 @@
         <b-form-textarea
           id="textarea"
           v-model="localSelectedTaskDescription"
-          placeholder="Enter something..."
+          placeholder="Enter task description"
           size="sm"
           rows="3"
           max-rows="6"
@@ -85,8 +85,8 @@ export default {
   computed: {
     ...mapState('app', ['selectedTask']),
 
-    /*
-      This property returns either the stored in Vuex task title
+    /**
+      @description This property returns either the stored in Vuex task title
       or a local data value (i.e. variable)
      */
     localSelectedTaskTitle: {
@@ -101,8 +101,8 @@ export default {
       }
     },
 
-    /*
-      This property returns either the stored in Vuex task description
+    /**
+      @description Returns either the stored in Vuex task description
       or a local data value (i.e. variable)
      */
     localSelectedTaskDescription: {
@@ -120,10 +120,10 @@ export default {
   methods: {
     ...mapActions('app', ['updateTaskTitle', 'updateTaskDescription']),
 
-    /*
-      Helper function handles the storage of the new task title.
+    /**
+      @description Helper function handles the storage of the new task title.
       Make back-end call only if the localSelectedTaskTitle is assigned.
-      On success, update Vuex and the local data properties
+      On success, update Vuex and the local data properties.
       Otherwise, revert the value of taskTitleChanged because the setter
       in the computed property would have changed it.
      */
@@ -140,10 +140,10 @@ export default {
       }
     },
 
-    /*
-      Helper function handles the storage of the new task description.
+    /**
+      @description Helper function handles the storage of the new task description.
       Make back-end call only if the localSelectedTaskDescription is assigned.
-      On success, update Vuex and the local data properties
+      On success, update Vuex and the local data properties.
       Otherwise, revert the value of taskDescriptionChanged because the setter
       in the computed property would have changed it.
      */
@@ -160,12 +160,40 @@ export default {
       }
     },
 
+    /**
+     * @description Displays a confirmation box to allow deletion
+     */
     deleteTask () {
-      /*
-        TODO:
-          1. Ask user if he/she is sure via vbModal
-          2. Handle deletion
-       */
+      this.$bvModal.msgBoxConfirm('Are you sure you want to delete the selected task?', {
+        title: 'Delete Task',
+        size: 'md',
+        okVariant: 'success',
+        okTitle: 'YES',
+        cancelTitle: 'NO',
+        footerClass: 'p-2',
+        hideHeaderClose: false,
+        centered: true
+      })
+        .then((confirmed) => {
+          if (confirmed) {
+            this.handleDelete(this.selectedTask.id)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    /**
+     *   @description Delete a Task using AppService.
+     *   @param {number} The id of the Task
+     *   @emits updateTasks
+     */
+    async handleDelete (id) {
+      const deleteTaskResult = await AppService.deleteTask(id)
+      if (deleteTaskResult.createdAt) {
+        this.$emit('updateTasks')
+      }
     }
   }
 }
