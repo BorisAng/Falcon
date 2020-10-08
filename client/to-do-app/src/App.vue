@@ -7,21 +7,18 @@
     <!-- Top Navigation Bar -->
     <navigation/>
 
-    <!-- TODO: Add <router-view> and render <main-content> and <task-info> inside ??? -->
-
-    <!-- Main Content -->
-    <main-content :title="`Tasks`"/>
+    <!-- Router View (Renders the current route component ) -->
+    <router-view/>
 
   </b-container>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation'
-import MainContent from '@/components/MainContent'
 
 export default {
   name: 'App',
-  components: { Navigation, MainContent }
+  components: { Navigation }
 }
 </script>
 

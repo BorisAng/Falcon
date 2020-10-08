@@ -1,8 +1,5 @@
 <template>
-  <b-col
-    sm="3"
-    class="pl-3"
-  >
+  <b-col xl="3">
     <b-card>
       <b-card-body>
 
@@ -23,7 +20,7 @@
 
           <!-- Edit Task Title -->
           <b-col
-            :sm="selectedTaskClone.completed ? '11' : '9'"
+            :sm="selectedTaskClone.completed ? '10' : '8'"
             class="px-2"
           >
             <b-form-input
@@ -37,10 +34,11 @@
             />
           </b-col>
 
-          <b-col sm='1'>
+          <b-col sm='2'>
             <b-btn
               variant="outline-danger"
               @click="deleteTask"
+              block
             >
               <b-icon-trash/>
             </b-btn>

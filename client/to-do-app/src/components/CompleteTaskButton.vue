@@ -7,6 +7,7 @@
     v-b-hover="handleHover"
     @click="handleClick"
     :disabled="selectedTask.completed === null || selectedTask.completed === true"
+    v-b-tooltip.hover title="Mark As Completed"
   >
     <b-iconstack>
       <b-icon-circle stacked v-if="!isHovered"/>
@@ -42,6 +43,7 @@ export default {
   methods: {
     // Get the actions (i.e. methods) to update the Vuex title and description
     ...mapActions('app', ['updateTaskCompleted', 'updateSelectedTask']),
+
     /**
      * @description Handles hovering over the complete task button
      * @param hovered - the state of the hovered

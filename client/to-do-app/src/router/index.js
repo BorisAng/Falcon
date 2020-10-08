@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import TaskRoutes from './taskRoutes'
+// import TaskRoutes from './taskRoutes'
 
 import MainContent from '@/components/MainContent'
-
 Vue.use(Router)
 
 const router = new Router({
@@ -13,14 +12,17 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'app.dashboard',
+      name: 'app.tasks',
       component: MainContent,
-      meta: {
-        icon: 'home',
-        text: 'Dashboard'
-      }
+      props: true
     },
-    ...TaskRoutes,
+    {
+      path: '/important',
+      name: 'app.important',
+      component: MainContent,
+      props: true
+    },
+    // ...TaskRoutes,
     {
       path: '*',
       redirect: '/'

@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- Current Tasks -->
-    <b-list-group class="mb-2">
+    <b-list-group
+      class="mb-2 overflow-auto"
+      :style="{ height: '450px' }"
+    >
       <task-item
         v-for="task in nonCompletedTask"
         :key="task.id + 'notCompleted'"
@@ -35,16 +38,21 @@
         v-model="collapsableShow"
         role="tabpanel"
       >
-        <b-card-body>
-          <!-- Completed Tasks -->
-          <b-list-group>
-            <task-item
-              v-for="task in completedTasks"
-              :key="task.id + 'completed'"
-              :task="task"
-            />
-          </b-list-group>
-        </b-card-body>
+        <perfect-scrollbar
+          class="matched-firms-scroll-area"
+          :options="scrollSettings"
+        >
+          <b-card-body>
+            <!-- Completed Tasks -->
+            <b-list-group>
+              <task-item
+                v-for="task in completedTasks"
+                :key="task.id + 'completed'"
+                :task="task"
+              />
+            </b-list-group>
+          </b-card-body>
+        </perfect-scrollbar>
       </b-collapse>
     </b-card>
   </div>
@@ -62,7 +70,13 @@ export default {
   },
   data () {
     return {
-      collapsableShow: false
+      collapsableShow: false,
+      scrollSettings: {
+        maxScrollbarLength: 100,
+        minScrollbarLength: 150,
+        suppressScrollX: true,
+        handlers: ['drag-thumb', 'wheel']
+      }
     }
   },
   computed: {
@@ -89,5 +103,7 @@ export default {
 </script>
 
 <style scoped>
-
+.tasks-scroll-area {
+  height: 250px;
+}
 </style>

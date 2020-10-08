@@ -46,6 +46,7 @@ export default {
       const postTaskResult = await AppService.postTask(params)
       if (postTaskResult.createdAt) {
         this.$emit('updateTasks')
+        this.taskTitle = ''
       }
     }
   }

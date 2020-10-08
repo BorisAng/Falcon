@@ -5,10 +5,10 @@
     class="px-3 pt-3"
   >
     <b-col
-      sm="9"
-      class="border-right pr-3 text-left"
+      xl="9"
+      class="pr-xl-3 text-left"
     >
-      <h1>{{title}}</h1>
+      <h1>Tasks</h1>
 
       <!-- TODO: Add <router-view> and render <create-task> and <tasks-list> inside ??? -->
 
