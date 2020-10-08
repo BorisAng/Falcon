@@ -24,7 +24,10 @@
           variant="primary"
           @click="collapsableShow = !collapsableShow"
         >
-          <h4 class="text-left">Completed Tasks</h4>
+          <h5 class="text-left mb-0">
+            Show Completed Tasks
+            <b-icon-chevron-down class="align-middle"/>
+          </h5>
         </b-button>
       </b-card-header>
       <b-collapse
@@ -41,7 +44,6 @@
               :task="task"
             />
           </b-list-group>
-
         </b-card-body>
       </b-collapse>
     </b-card>
@@ -50,10 +52,11 @@
 
 <script>
 import TaskItem from '@/components/TaskItem'
+import { BIconChevronDown } from 'bootstrap-vue'
 
 export default {
   name: 'TasksList',
-  components: { TaskItem },
+  components: { TaskItem, BIconChevronDown },
   props: {
     tasks: Array
   },
