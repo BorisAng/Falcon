@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Current Tasks -->
-    <b-list-group>
+    <b-list-group class="mb-2">
       <task-item
         v-for="task in nonCompletedTask"
         :key="task.id + 'notCompleted'"
@@ -9,16 +9,42 @@
       />
     </b-list-group>
 
-    <h4>Completed</h4>
+    <b-card
+      no-body
+      class="mb-1"
+    >
+      <b-card-header
+        header-tag="header"
+        class="p-1"
+        role="tab"
+      >
+        <b-button
+          block
+          href="#"
+          variant="primary"
+          @click="collapsableShow = !collapsableShow"
+        >
+          <h4 class="text-left">Completed Tasks</h4>
+        </b-button>
+      </b-card-header>
+      <b-collapse
+        :id="'collapse'"
+        v-model="collapsableShow"
+        role="tabpanel"
+      >
+        <b-card-body>
+          <!-- Completed Tasks -->
+          <b-list-group>
+            <task-item
+              v-for="task in completedTasks"
+              :key="task.id + 'completed'"
+              :task="task"
+            />
+          </b-list-group>
 
-    <!-- Completed Tasks -->
-    <b-list-group>
-      <task-item
-        v-for="task in completedTasks"
-        :key="task.id + 'completed'"
-        :task="task"
-      />
-    </b-list-group>
+        </b-card-body>
+      </b-collapse>
+    </b-card>
   </div>
 </template>
 
@@ -30,6 +56,11 @@ export default {
   components: { TaskItem },
   props: {
     tasks: Array
+  },
+  data () {
+    return {
+      collapsableShow: false
+    }
   },
   computed: {
     completedTasks () {
@@ -50,9 +81,6 @@ export default {
         return []
       }
     }
-  },
-  data () {
-    return {}
   }
 }
 </script>
