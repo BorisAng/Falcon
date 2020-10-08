@@ -10,6 +10,7 @@
 
       <!-- Complete Task Button -->
       <b-col
+        v-if="!task.completed"
         sm="1"
         class="pr-2"
       >

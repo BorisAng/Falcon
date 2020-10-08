@@ -40,7 +40,8 @@ export default {
     async createTask () {
       const params = {
         title: this.taskTitle,
-        description: ''
+        description: '',
+        completed: false
       }
       const postTaskResult = await AppService.postTask(params)
       if (postTaskResult.createdAt) {

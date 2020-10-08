@@ -30,4 +30,13 @@ describe('App mutations tests', () => {
     app.mutations.setTaskDescription(state, payload)
     expect(state.selectedTask.description).toEqual(payload)
   })
+
+  test('setTaskCompleted sets state.selectedTask.completed to payload', () => {
+    const payload = true
+
+    const state = { selectedTask: { completed: false } }
+
+    app.mutations.setTaskCompleted(state, payload)
+    expect(state.selectedTask.completed).toEqual(payload)
+  })
 })

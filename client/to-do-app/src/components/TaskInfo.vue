@@ -12,14 +12,20 @@
         >
 
           <!-- Complete Task Button -->
-          <b-col sm="2">
+          <b-col
+            sm="2"
+            v-if="!selectedTaskClone.completed"
+          >
             <complete-task-button
               :size="'md'"
             />
           </b-col>
 
           <!-- Edit Task Title -->
-          <b-col sm="9" class="px-2">
+          <b-col
+            :sm="selectedTaskClone.completed ? '11' : '9'"
+            class="px-2"
+          >
             <b-form-input
               class="border-0"
               type="text"
@@ -111,9 +117,11 @@ export default {
     }
   },
   computed: {
+    // Get the selectedTask from Vuex
     ...mapState('app', ['selectedTask'])
   },
   methods: {
+    // Get the actions (i.e. methods) to update the Vuex title and description
     ...mapActions('app', ['updateTaskTitle', 'updateTaskDescription']),
 
     /**

@@ -26,7 +26,7 @@ describe('App actions tests', () => {
     expect(context.commit).toHaveBeenCalledWith('setTaskTitle', title)
   })
 
-  test('updateTaskDescription commits setTaskTitleDescription with selected task description', async () => {
+  test('updateTaskDescription commits setTaskDescription with selected task description', async () => {
     const context = {
       commit: jest.fn()
     }
@@ -35,5 +35,16 @@ describe('App actions tests', () => {
 
     await app.actions.updateTaskDescription(context, description)
     expect(context.commit).toHaveBeenCalledWith('setTaskDescription', description)
+  })
+
+  test('updateTaskCompleted commits setTaskCompleted with selected task completed', async () => {
+    const context = {
+      commit: jest.fn()
+    }
+
+    const completed = true
+
+    await app.actions.updateTaskCompleted(context, completed)
+    expect(context.commit).toHaveBeenCalledWith('setTaskCompleted', completed)
   })
 })
