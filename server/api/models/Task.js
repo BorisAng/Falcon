@@ -10,6 +10,7 @@ module.exports = {
     title: { type: 'string', required: true, },
     description: { type: 'string', allowNull: true, defaultsTo: '' },
     priority: { type: 'number', allowNull: null },
+    completed: { type: 'boolean', defaultsTo: false},
     project: {
       model: 'project'
     }

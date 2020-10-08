@@ -24,7 +24,7 @@
               class="border-0"
               type="text"
               placeholder="Enter task title"
-              v-model="localSelectedTaskTitle"
+              v-model="selectedTaskClone.title"
               autocomplete="off"
               @blur="storeNewTaskTitle"
               @keydown.enter.native="storeNewTaskTitle"
@@ -43,7 +43,7 @@
 
         <b-form-textarea
           id="textarea"
-          v-model="localSelectedTaskDescription"
+          v-model="selectedTaskClone.description"
           placeholder="Enter task description"
           size="sm"
           rows="3"
@@ -73,90 +73,92 @@ export default {
   },
   data () {
     return {
-      taskTitle: '',
-      taskDescription: '',
-      taskTitleChanged: false,
-      taskDescriptionChanged: false
+      selectedTaskClone: {
+        title: '',
+        description: ''
+      },
+      selectedTaskPristine: {
+        title: '',
+        description: ''
+      },
+      titleChanged: false,
+      descriptionChanged: false
     }
   },
-  created () {
-    this.taskTitle = this.selectedTask.title
-  },
-  computed: {
-    ...mapState('app', ['selectedTask']),
+  watch: {
 
     /**
-      @description This property returns either the stored in Vuex task title
-      or a local data value (i.e. variable)
+     * @description Watches the selected task for a change and assign clone and pristine values.
      */
-    localSelectedTaskTitle: {
-      get () {
-        return this.selectedTask.title !== '' && this.taskTitleChanged !== true
-          ? this.selectedTask.title
-          : this.taskTitle
-      },
-      set (newData) {
-        this.taskTitle = newData
-        this.taskTitleChanged = true
-      }
+    selectedTask () {
+      this.selectedTaskClone = JSON.parse(JSON.stringify(this.selectedTask))
+      this.selectedTaskPristine = JSON.parse(JSON.stringify(this.selectedTask))
     },
 
     /**
-      @description Returns either the stored in Vuex task description
-      or a local data value (i.e. variable)
+     * @description Watches the selected task CLONE for a change and assigns the
+     * titleChanged and descriptionChanged properties accordingly.
      */
-    localSelectedTaskDescription: {
-      get () {
-        return this.selectedTask.description !== '' && this.taskDescriptionChanged !== true
-          ? this.selectedTask.description
-          : this.taskDescription
+    selectedTaskClone: {
+      handler (newVal) {
+        const sameTitles = JSON.stringify(newVal.title) === JSON.stringify(this.selectedTaskPristine.title)
+        sameTitles ? this.titleChanged = false : this.titleChanged = true
+
+        const sameDescriptions = JSON.stringify(newVal.description) === JSON.stringify(this.selectedTaskPristine.description)
+        sameDescriptions ? this.descriptionChanged = false : this.descriptionChanged = true
       },
-      set (newData) {
-        this.taskDescription = newData
-        this.taskDescriptionChanged = true
-      }
+      deep: true
     }
+  },
+  computed: {
+    ...mapState('app', ['selectedTask'])
   },
   methods: {
     ...mapActions('app', ['updateTaskTitle', 'updateTaskDescription']),
 
     /**
       @description Helper function handles the storage of the new task title.
-      Make back-end call only if the localSelectedTaskTitle is assigned.
-      On success, update Vuex and the local data properties.
-      Otherwise, revert the value of taskTitleChanged because the setter
-      in the computed property would have changed it.
+      Make back-end call only if the local title has changed.
+      The local title also must have a value and a task id.
+      On success, update Vuex (i.e. Update UI)
      */
     async storeNewTaskTitle () {
-      if (this.localSelectedTaskTitle) {
-        const putTaskResult = await AppService.putTask({ title: this.localSelectedTaskTitle }, this.selectedTask.id)
-        if (putTaskResult.createdAt) {
-          this.updateTaskTitle(this.localSelectedTaskTitle)
-          this.taskTitle = ''
-          this.taskTitleChanged = false
+      if (this.titleChanged) {
+        if (this.selectedTaskClone.title && this.selectedTaskClone.id) {
+          // Make back-end call with new title
+          const putTaskResult = await AppService.putTask({
+            title: this.selectedTaskClone.title
+          }, this.selectedTaskClone.id)
+
+          // Update Vuex
+          if (putTaskResult.createdAt) {
+            this.updateTaskTitle(this.selectedTaskClone.title)
+            this.titleChanged = false
+          }
         }
-      } else {
-        this.taskTitleChanged = false
       }
     },
 
     /**
       @description Helper function handles the storage of the new task description.
-      Make back-end call only if the localSelectedTaskDescription is assigned.
-      On success, update Vuex and the local data properties.
-      Otherwise, revert the value of taskDescriptionChanged because the setter
-      in the computed property would have changed it.
+      Make back-end call only if the local description has changed.
+      The local description also must have a value and a task id.
+      On success, update Vuex (i.e. Update UI)
      */
     async storeNewTaskDescription () {
-      if (this.localSelectedTaskDescription) {
-        const putTaskResult = await AppService.putTask({ title: this.localSelectedTaskDescription }, this.selectedTask.id)
-        if (putTaskResult.createdAt) {
-          this.updateTaskDescription(this.localSelectedTaskDescription)
-          this.taskDescription = ''
-          this.taskDescriptionChanged = false
+      if (this.descriptionChanged) {
+        if (this.selectedTaskClone.description && this.selectedTaskClone.id) {
+          // Make back-end call with new description
+          const putTaskResult = await AppService.putTask({
+            title: this.selectedTaskClone.description
+          }, this.selectedTaskClone.id)
+
+          // Update Vuex
+          if (putTaskResult.createdAt) {
+            this.updateTaskDescription(this.selectedTaskClone.description)
+            this.descriptionChanged = false
+          }
         }
-      } else {
-        this.taskDescriptionChanged = false
       }
     },
 
