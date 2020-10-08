@@ -4,6 +4,7 @@
       <b-button
         variant="outline-primary"
         @click="createTask"
+        @keydown.enter.native="createTask"
       >
         <b-icon-plus></b-icon-plus>
       </b-button>
@@ -14,6 +15,7 @@
       placeholder="Add a task"
       v-model="taskTitle"
       autocomplete="off"
+      @keydown.enter.native="createTask"
     />
 
   </b-input-group>
@@ -43,10 +45,27 @@ export default {
         description: '',
         completed: false
       }
-      const postTaskResult = await AppService.postTask(params)
-      if (postTaskResult.createdAt) {
-        this.$emit('updateTasks')
-        this.taskTitle = ''
+      if (this.taskTitle) {
+        const postTaskResult = await AppService.postTask(params)
+        if (postTaskResult.createdAt) {
+          this.$emit('updateTasks')
+          this.taskTitle = ''
+        }
+      } else {
+        this.$bvModal.msgBoxOk('Please, enter a task title', {
+          title: 'Enter Task Title',
+          size: 'md',
+          buttonSize: 'md',
+          okVariant: 'success'
+        })
+          .then((confirmed) => {
+            if (confirmed) {
+              this.handleDelete(this.selectedTask.id)
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }
     }
   }

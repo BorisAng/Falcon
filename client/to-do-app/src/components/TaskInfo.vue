@@ -52,6 +52,7 @@
           size="sm"
           rows="3"
           max-rows="6"
+          autocomplete="off"
           @blur="storeNewTaskDescription"
           @keydown.enter.exact.prevent
           @keyup.enter.exact="storeNewTaskDescription"
@@ -175,7 +176,7 @@ export default {
       this.$bvModal.msgBoxConfirm('Are you sure you want to delete the selected task?', {
         title: 'Delete Task',
         size: 'md',
-        okVariant: 'success',
+        okVariant: 'danger',
         okTitle: 'YES',
         cancelTitle: 'NO',
         footerClass: 'p-2',

@@ -1,5 +1,4 @@
 <template>
-  <!--      :style="{'height': '90vh'}"-->
   <b-row
     no-gutters
     class="px-3 pt-3"

@@ -16,7 +16,9 @@
       />
     </b-col>
 
-    <b-col sm="11">
+    <b-col
+      :sm="!task.completed ? '11' : '12'"
+    >
       <b-list-group-item
         @click="selectTask"
         button
