@@ -5,12 +5,10 @@
     class="px-3 pt-3"
   >
     <b-col
-      xl="9"
+      :xl="selectedTask.title ? '9' : '12'"
       class="pr-xl-3 text-left"
     >
       <h1>Tasks</h1>
-
-      <!-- TODO: Add <router-view> and render <create-task> and <tasks-list> inside ??? -->
 
       <!-- Create To Do -->
       <create-task @updateTasks="updateTasks"/>
@@ -24,7 +22,10 @@
     </b-col>
 
     <!-- Task Info -->
-    <task-info @updateTasks="updateTasks"/>
+    <task-info
+      v-if="selectedTask.title"
+      @updateTasks="updateTasks"
+    />
   </b-row>
 </template>
 
@@ -35,6 +36,7 @@ import TasksList from '@/components/TasksList'
 import AppService from '@/services/app.service'
 import TaskInfo from '@/components/TaskInfo'
 import { mapState } from 'vuex'
+
 export default {
   name: 'MainContent',
   components: { CreateTask, TasksList, TaskInfo },
@@ -55,7 +57,10 @@ export default {
   },
   methods: {
 
-    // Responds to updateTask event
+    /**
+     * @description Responds to updateTasks event
+     * @returns {Promise<void>}
+     */
     async updateTasks () {
       this.tasks = await AppService.getTasks()
     }

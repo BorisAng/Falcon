@@ -20,6 +20,7 @@
       <b-list-group-item
         @click="selectTask"
         button
+        v-b-tooltip.hover title="Select a Task"
       >
         <b-row
           no-gutters
@@ -57,11 +58,16 @@ export default {
     // Vuex method to update the selected task
     ...mapActions('app', ['updateSelectedTask']),
 
-    // Handles task selection
+    /**
+     * @description Handles task selection. Updates Vuex selected task
+     */
     selectTask () {
       this.updateSelectedTask(this.task)
     },
 
+    /**
+     * @description Responds to update tasks event
+     */
     updateTasks () {
       this.$emit('updateTasks')
     }

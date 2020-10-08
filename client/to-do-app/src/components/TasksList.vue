@@ -2,9 +2,10 @@
   <div>
     <!-- Current Tasks -->
     <b-list-group
-      class="mb-2 overflow-auto"
-      :style="{ height: '450px' }"
+      class="mb-2"
     >
+<!--      overflow-auto-->
+<!--      :style="{ height: '450px' }"-->
       <task-item
         v-for="task in nonCompletedTask"
         :key="task.id + 'notCompleted'"
@@ -70,6 +71,7 @@ export default {
     }
   },
   computed: {
+    // Gets the completed task
     completedTasks () {
       if (this.tasks) {
         return this.tasks.filter(task => {
@@ -79,6 +81,7 @@ export default {
         return []
       }
     },
+    // Gets the non completed tasks
     nonCompletedTask () {
       if (this.tasks) {
         return this.tasks.filter(task => {
@@ -90,6 +93,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * @description Responds to update tasks event
+     */
     updateTasks () {
       this.$emit('updateTasks')
     }

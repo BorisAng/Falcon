@@ -35,9 +35,6 @@ export default {
       isHovered: false
     }
   },
-  computed: {
-
-  },
   methods: {
 
     /**
