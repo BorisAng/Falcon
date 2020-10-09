@@ -4,8 +4,8 @@ import MainContent from '@/components/MainContent'
 import CreateTask from '@/components/CreateTask'
 import BootstrapVue from 'bootstrap-vue'
 import mergeWith from 'lodash.mergewith'
-import TasksList from "@/components/TasksList";
-import TaskInfo from "@/components/TaskInfo";
+import TasksList from '@/components/TasksList'
+import TaskInfo from '@/components/TaskInfo'
 
 const localVue = createLocalVue()
 localVue.use(BootstrapVue)
