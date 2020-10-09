@@ -25,8 +25,8 @@ npm run test:unit
 
 ## Solution 
 
-Implementation achieved utilizing `Vue 2` (including `Vuex` and `Vue-Router`), `Bootstrap-Vue` and `Axios`. 
-Some unit tests using `Jest` and `vue-test-utils`.
+Implementation achieved utilizing `Vue 2` (including `Vuex` and `Vue-Router`), `Bootstrap-Vue` and `Axios`. `Axios` is
+used to create the services which access the back-end. Some unit tests using `Jest` and `vue-test-utils`.
 
 The app consists of a client router (i.e. Vuex) file which deals with the rendering of the different components 
 depending on the route. Currently, there is one main component, called `MainContent` which holds 
