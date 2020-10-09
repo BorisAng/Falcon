@@ -22,7 +22,7 @@
 
     <!-- Task Info -->
     <task-info
-      v-if="selectedTask.title"
+      v-if="selectedTask.id"
       @updateTasks="updateTasks"
     />
   </b-row>
@@ -47,6 +47,7 @@ export default {
       tasks: null
     }
   },
+  // On creation get the list of tasks
   async created () {
     this.tasks = await AppService.getTasks()
   },

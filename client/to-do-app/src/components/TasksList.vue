@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <!-- Current Tasks -->
     <b-list-group
       class="mb-2"
@@ -14,9 +15,11 @@
       />
     </b-list-group>
 
+    <!--    Completed Tasks inside a collapse -->
     <b-card
       no-body
       class="mb-1"
+      role="tablist"
     >
       <b-card-header
         header-tag="header"
@@ -30,7 +33,7 @@
           @click="collapsableShow = !collapsableShow"
         >
           <h5 class="text-left mb-0">
-            Show Completed Tasks
+            <span class="mr-2">Show Completed Tasks</span>
             <b-icon-chevron-down class="align-middle"/>
           </h5>
         </b-button>
@@ -41,7 +44,6 @@
         role="tabpanel"
       >
         <b-card-body>
-          <!-- Completed Tasks -->
           <b-list-group>
             <task-item
               v-for="task in completedTasks"

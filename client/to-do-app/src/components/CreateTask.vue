@@ -4,7 +4,6 @@
       <b-button
         variant="outline-primary"
         @click="createTask"
-        @keydown.enter.native="createTask"
       >
         <b-icon-plus></b-icon-plus>
       </b-button>
@@ -15,7 +14,7 @@
       placeholder="Add a task"
       v-model="taskTitle"
       autocomplete="off"
-      @keydown.enter.native="createTask"
+      @keydown.enter="createTask"
     />
 
   </b-input-group>

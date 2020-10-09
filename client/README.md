@@ -1,9 +1,27 @@
-# How to run
-1) Navigate to client/to-do-app
+```
+Navigate to client/to-do-app
+```
 
-2) run `npm install`
+## Project setup
+```
+npm install
+```
 
-2) run `npm run serve`
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your unit tests
+```
+npm run test:unit
+```
+
 
 ## Solution 
 
@@ -19,9 +37,12 @@ one being the list of current (non-completed) tasks, and the second the list of 
 `TaskList` is rendered in `TaskItem` component. `TaskItem` renders slightly different content depending on whether the 
 task is completed or not.
 
-`TaskInfo` represents the information for a task. It allows editing of the task title and description using the back-end
-API. A task can also be completed or deleted from `TaskInfo`. Note that in order for `TaskInfo` to be rendered a task 
-must be selected.
+`TaskInfo` represents the information for a task. Note that in order for `TaskInfo` to be rendered a task must be selected.  
+It allows editing of the task title and description using the back-endAPI. The surrounding idea is that it has a `watch` 
+which watches when a new task has been selected and creates a clone and pristine copy of that selected task. 
+The clone is used as the model of the inputs while another `watch` on the clone itself compares its current 
+value with the pristine in order to store the new data or not. Furthermore, a task can also be completed or 
+deleted from `TaskInfo`. 
 
 
 
